@@ -1006,14 +1006,16 @@ if (!$continua){
                                 //$fechaMasDiez = $anio.'-'.$mes.'-'.$dia;
                                 $fechaLimite = sumarRestarSobreFecha($fechaDesde, 10, 'year', '+');
                                 if ($fechaDesde <= $fechaLimite) {
-                                    $sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
+                                    //$sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
+                                    $sanciones = 'Art. 52c Decreto-Ley 5413/58'; 
                                 }
                                 break;
 
                             case '40c':
                                 $fechaActual = date('Y-m-d'); 
                                 if ($fechaDesde <= $fechaActual && $fechaActual <= $fechaHasta) {
-                                    $sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
+                                    //$sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
+                                    $sanciones = 'Art. 40c Decreto-Ley 5413/58'; 
                                 }
                                 break;
 
@@ -1022,8 +1024,8 @@ if (!$continua){
                         }
                         if (isset($sanciones)) {
                             $pdf->SetFont('dejavusans', 'B', 9);
-                            //$pdf->MultiCell(0, $alturaLinea, $sanciones, 0, 'L', false, 1, '70', '', true);
-                            $pdf->MultiCell(0, $alturaLinea, 'SI', 0, 'L', false, 1, '70', '', true);
+                            $pdf->MultiCell(0, $alturaLinea, $sanciones, 0, 'L', false, 1, '70', '', true);
+                            //$pdf->MultiCell(0, $alturaLinea, 'SI', 0, 'L', false, 1, '70', '', true);
                             $conSancion = TRUE;
                         }
                     }
