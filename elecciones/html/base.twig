@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <link href="{{ paths.PATH_CSS }}estilos.css" rel="stylesheet" type="text/css" />
+        <link rel="icon" type="image/x-icon" href="{{ paths.PATH_IMAGES }}logosh.gif" />
+        {% block refresh %}
+            <META HTTP-EQUIV="Refresh" CONTENT="30;URL={% if(localhost) %}{{ paths.PATH_CONTROLLER }}controladorVista.php?seccion=resultados{% else %}{{ paths.PATH_HOME }}resultados{% endif %}">
+        {% endblock %}
+        <title>{% block title %}Elecciones de Consejo{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <nav>{% block menu %}{% endblock %}</nav>
+        </header>
+        <section>{% block content %}{% endblock %}</section>
+        <footer>
+        {% block footer %}
+            {#<p style="text-align: center;">&copy;2014 - Colegio de Médicos - Provincia  de Buenos Aires - Distrito I</p>#}
+        {% endblock %}
+    </footer>
+</body>  
+</html>

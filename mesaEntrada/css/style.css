@@ -1,0 +1,699 @@
+* { margin: 0; padding: 0; }
+
+ul { list-style: none inside; }
+
+/*p { font-size: 1.2em; line-height: 1.2em; margin-bottom: 1.2em; }
+a img { border: none; }
+*/
+.floatleft { float: left; }
+.floatright { float: right; }
+.clear { clear: both; }
+
+/* a {
+	text-decoration: none; 
+	outline: none;
+	color: #335588;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+*/
+
+.mensajeOK{background-color: #E0FFE0;border-color: #208020;border-width: 1px;width: 100%; border-style: solid;text-align: center;color: #208020;padding-top: 10px;padding-bottom: 10px; line-height: 36px;   }
+.mensajeERROR{background-color: #FEF8F6;border-color: #D50A3C;border-width: 1px;width: 100%; border-style: solid;text-align: center;color: #D50A3C;padding-top: 10px;padding-bottom: 10px; line-height: 36px;   }
+.mensajeWARNING{background-color: #FCFAF1;border-color: #FCEFA1;border-width: 1px;width: 100%; border-style: solid;text-align: center;color: #000000;padding-top: 10px;padding-bottom: 10px; line-height: 36px;   }
+
+#page-wrap {
+	min-width: 960px; max-width: 1260px;
+	margin: 0 auto; padding: 0 10px;
+	width:expression(document.body.clientWidth < 961? "960px" : document.body.clientWidth > 1261? "1260px" : "auto");
+}
+
+#top-bar {
+	background: #f5802d;
+	min-height: 55px;
+	padding: 0 10px;
+	font-size: 1.3em;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	}
+	#right-side {
+		float: right;
+		padding-top: 20px;
+		}
+		#right-side img {
+			border: 1px solid white;
+			vertical-align: middle;
+		}
+		#right-side a {
+			color: white;
+			border-left: 1px solid white;
+			height: 10px;
+			padding-left: 10px;
+			}
+			#right-side a.first {
+				border: none;
+				padding: 0;
+			}
+			form#main-search {
+				display: inline;
+				position: relative;
+				padding-right: 10px;
+				}
+				form#main-search label {
+					display: none;
+				}
+				#search-button {
+					position: absolute;
+					right: 0px;
+					top: -6px;
+				}
+		
+                                
+/*
+----------------------- M E N Ú --------------------------------
+*/
+
+
+#menu-wrapper ul{ 
+    /* 3 */ 
+    padding: 0;   
+    /* 4 */                  
+    list-style: none;   
+    background: #cccccc; 
+} 
+
+
+/* 1 */ 
+#hmenu > li{ 
+    display: inline-block;           
+} 
+/* 2 */ 
+#hmenu > li > a{ 
+    display: block;                  
+    padding: 10px 5px;               
+    /* width: 135px;                */
+} 
+/* 3 */ 
+li ul{ 
+    position: absolute;
+} 
+
+
+li ul{ 
+    position: absolute;  
+    /* 2 */ 
+    display: none; 
+} 
+
+
+.sub-menu a{ 
+    /* 1 */ 
+    display: block; 
+    padding: 10px 10px; 
+    /*width: 135px; */
+} 
+
+li:hover ul{ 
+    /* 3 */ 
+    display: block; 
+}
+
+#menu-wrapper, li ul{ 
+    background: #cccccc; 
+} 
+
+#hmenu { 
+    margin: 0 auto; 
+} 
+
+#hmenu a{ 
+    color: #000000; 
+    text-decoration: none; 
+    font-weight: bold; 
+} 
+
+#hmenu li:hover{ 
+    background: #6699FF; 
+}
+
+/*
+
+M E N Ú     V I E J O ------------------------
+
+#zone-bar {
+	background: url(../images/fondo.png);
+	min-height: 30px;
+	padding: 5px 10px 0 10px;
+        font-size: .75em
+	}
+	#zone-bar ul {
+		display: block;
+		}
+		#zone-bar ul li {
+			height: 18px;
+			padding: 5px 5px 0 5px;
+			position: relative;
+			float: left;
+			margin-right: 10px;
+			}
+			#zone-bar ul li:hover {
+				background: url(../images/zonebar-navleft.png) center left no-repeat;
+			}
+			#zone-bar ul li a {
+				display: block;
+				float: left;
+				height: 23px;
+				position: relative;
+				top: -5px;
+				right: -5px;
+				padding-right: 3px;
+				color: #383838;
+				font-weight: bold;
+				font-size: 1.1em;
+				text-decoration: none;
+				}
+				#zone-bar ul li a:hover {
+					background: url(../images/zonebar-navright.png) center right no-repeat;
+				}
+				#zone-bar ul li a span {
+					position: relative;
+					top: 6px;
+				}
+			#zone-bar ul li ul {
+				display: none;
+				position: absolute;
+				top: 29px;
+				left: 0px;
+				width: 150px;
+				border: 1px solid #ccc;
+				background: #d2d1d1;
+				padding: 10px 0 0 0;
+				}
+				#zone-bar ul li ul li {
+					float: none;
+					padding: 0; margin: 0;
+					height: 100%;
+				}
+				#zone-bar ul li ul li:hover {
+					background: none;
+					}
+					#zone-bar ul li ul li a {
+						display: block;
+						float: none;
+						margin-left: -5px;
+						padding: 5px 0 0 10px;
+						width: 140px;
+					}
+					#zone-bar ul li ul li a:hover {
+						background: #e8e8e8;
+					}
+
+*/                                        
+/*
+----------------------- M E S A     E N T R A D A -----------------------------
+*/
+                                        
+#titulo{
+    text-align: center;
+}
+#filtros{
+    text-align: left;
+}
+#page-wrap #formSolicitante{
+    text-align: left;
+    margin-bottom: 20px;
+}
+#page-wrap a{
+    cursor: pointer;
+}
+.porMatricula{
+    width: 40%;
+}
+.porApellido{
+    width: 200%;
+}
+
+.tablaTabs{
+    width: 100%;
+    border: black 1px solid;
+    border-collapse: collapse;
+}
+.tablaTabs td{
+     border: black 1px solid;
+     padding: 5px;
+}
+
+#formularioEspecialidad{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.ordenDiaDetalle{
+    border: black 1px solid;
+    border-collapse: collapse;
+    width: 100%;
+}
+.ordenDiaDetalle td{
+    border: black 1px solid;
+    padding: 5px 5px 5px 5px;
+}
+.tablaRemitente td{
+    width: 80px;
+    height: 50px;
+}
+
+.tablaConsultorio td{
+    padding: 5px 5px 5px 5px;
+}
+
+.codError{
+    color: red;
+}
+.codVerde{
+    color: green;
+}
+
+.botonesConfirmar{
+    text-align: center;
+}
+.botonesConfirmar input{
+    margin-right: 50px;
+}
+.dbl_colegiado{
+    cursor: pointer;
+}
+.dbl_consultorio{
+    cursor: pointer;
+}
+.dbl_especialidad{
+    cursor: pointer;
+}
+.dbl_remitente{
+    cursor: pointer;
+}
+.dbl_inspector{
+    cursor: pointer;
+}
+
+#tablaEstadisticas{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#tablaEstadisticas td{
+    max-width: 100px;
+    border: 1px black solid;
+    padding: 5px;
+}
+.izquierda{
+    text-align: left;
+}
+
+/*
+----------------------- I N S P E C C I O N E S ----------------------------
+*/
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+#tablaHabilitaciones{
+    border-collapse: collapse;
+    text-align: center;
+}
+#tablaHabilitaciones td{
+    width: 150px;
+    border: 1px black solid;
+    padding: 5px;
+}
+
+.tablaCentrada{
+    width: 100%;
+}
+
+#tablaBuscarInspector td{
+    padding: 10px;
+}
+.botonesForm td{
+    padding: 10px;
+}
+
+.confirmacion{
+    padding: 10px;
+}
+.confirmacion span{
+    padding: 15px;
+    font-size: 18px;
+}
+.confirmacion .confirmSi{
+    margin-left: 10px;
+    color: green;
+    cursor: pointer;
+}
+.confirmacion .confirmNo{
+    color: red;
+    cursor: pointer;
+}
+.volver{
+    float: left;
+    margin-right: 20px;
+}
+.inputHabAsig{
+    margin-left: -35px;
+}
+
+.textoOk{
+    color: green;
+}
+.textoError{
+    color: red;
+}
+/*
+----------------------- P A G I N A C I O N --------------------------------
+*/
+                                        
+.paginacion {
+    height: 36px;
+    margin: 15px 0;
+	
+}
+.paginacion p {
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    margin-bottom: 10px;
+	margin-left:92px;
+	box-shadow: 0 2px 5px #666666;
+}
+.paginacion p {
+    display: inline;
+}
+.paginacion a {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #DDDDDD;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 34px;
+    padding: 0 14px;
+    text-decoration: none;
+	cursor:pointer;
+}
+.paginacion a:hover, .paginacion .active a {
+    color:#2d2d28;
+	outline:0;
+	text-decoration:none;
+	font-weight: bold;
+}
+.paginacion .active a {
+    color: #999999;
+    cursor: default;
+}
+.paginacion .disabled a, .paginacion .disabled a:hover {
+    background-color: transparent;
+    color: #999999;
+    cursor: default;
+}
+.paginacion p:first-child a {
+    border-left-width: 1px;
+    border-radius: 3px 0 0 3px;
+}
+.pagination p:last-child a {
+    border-radius: 0 3px 3px 0;
+}
+
+/*
+----------------------- H O J A    R U T A --------------------------------
+*/
+
+/*
+
+.recuadro{
+    //float: right;
+    margin-left: 230px;
+    margin-top: -30px;
+    width: 120px;
+    height: 30px;
+}
+
+.NMesaIzq{
+    width: 40px;
+    height: 30px;
+    border: black 1px solid;
+    float: left;
+}
+
+.NMesaDer{
+    margin-left: 50px;
+    width: 80px;
+    height: 30px;
+    border: black 1px solid;
+}
+
+.recuadroMovimiento{
+    //float: right;
+    margin-left: 180px;
+    margin-top: -30px;
+    width: 120px;
+    height: 30px;
+}
+*/
+
+.textoChico{
+    font-size: 12px;
+}
+
+.recuadro{
+    float: right;
+    margin-top: -30px;
+    width: 80px;
+    height: 30px;
+     border: black 1px solid;
+}
+
+.recuadroMovimiento{
+    float: right;
+    margin-top: -25px;
+    width: 80px;
+    height: 25px;
+    border: black 1px solid;
+}
+
+.encabezadoHojaRuta{
+    text-align: center;
+    margin-left: 10px;
+    width: 800px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+.encabezadoHojaRuta td{
+    height: 80px;
+}
+.tdHDR{
+    text-align: center;
+}
+/*
+.tdHDR h1{
+    text-align: center;
+}
+*/
+.cuerpoHojaRuta{
+    text-align: center;
+    margin-left: 10px;
+    width: 800px;
+    
+}
+.encabezadoTabla{
+    border: black 2px solid;
+}
+.cuerpoTabla td{
+    border: black 2px solid;
+    height: 500px;
+}
+.tdIzq{
+    width: 600px;
+}
+.lineaBajoTabla{
+    margin-top: 5px;
+    width: 800px;
+    border: black 2px solid;
+}
+
+.textoBajoTabla{
+    float: left;
+    margin-right: 400px;
+}
+
+.textoBajoTablaPlanilla{
+    float: left;
+    margin-right: 350px;
+}
+
+#expediente{
+    margin: 50px 50px 50px 100px; 
+    //height: 1400px;
+    max-height: 1400px;
+}
+
+#tituloPlanilla{
+    text-align: center;
+}
+
+.tablaPlanillaMovimientoDistritos{
+    height: 750px;
+}
+
+.tablaPlanilla{
+    border: black 2px solid;
+    border-collapse: collapse;
+    width: 100%;
+}
+.tablaPlanilla td{
+    border: black 2px solid;
+    width: 50%;
+    height: 90px;
+    max-height: 70px;
+    
+}
+
+.tituloPlantilla{
+    font-size: 20px;
+}
+
+.encabezadoPlanilla{
+    font-size: 12px;
+    width: 600px;
+}
+
+.encabezadoPlanilla td{
+    height: 50px;
+}
+
+#container{
+    width: 80%;
+    height: 80%;
+    margin: 10% 10% 0% 10%;
+}
+
+.textDerecha{
+    text-align: right;
+}
+.textIzquierda{
+    text-align: left;
+}
+.textCuerpo{
+    text-align: justify;
+    text-indent: 30%;
+}
+.firma{
+    width: 300px;
+    position: relative;
+    left: 45%;
+    margin-right: 5%;
+}
+.firmaDefuncion{
+    width: 500px;
+    position: relative;
+    left: 45%;
+    margin-right: 5%;
+}
+
+.final{
+    margin-top: 10%;
+}
+
+.lineaBajoTablaConsultorio{
+    width: 100%;
+    border: black 2px solid;
+}
+
+.textoBajoTablaConsultorio{
+    float: left;
+    margin-right: 200px;
+}
+
+.cuerpoHojaRutaMovimiento{
+    width: 100%;
+    text-align: center;
+}
+.cuerpoTablaMovimiento td{
+    border: black 2px solid;
+    height: 550px;
+}
+.cuerpoTablaMovimientoEspecial td{
+    border: black 2px solid;
+    height: 150px;
+}
+.tdIzqMovimiento{
+    width: 500px;
+}
+.textCuerpoMovimiento{
+    font-size: medium;
+    text-align: justify;
+    text-indent: 30%;
+    line-height: 1.6;
+}
+#containerMovimiento{
+    width: 80%;
+    height: 80%;
+    margin: 0% 10% 0% 10%;
+}
+.tdHDRMovimiento{
+    text-align: left;
+}
+.lineaBajoTablaMovimiento{
+    border: black 2px solid;
+}
+.textoBajoTablaMovimiento{
+    float: left;
+    margin-right: 200px;
+}
+
+.bodyInspeccion{
+    font-style: italic;
+    font-family: "Verdana", sans-serif;
+    margin-top: 180px;
+    margin-left: 80px;
+    padding-right: 20px;
+    
+}
+.bodyInspeccion p{
+    text-align: justify;
+    text-indent: 40px;
+    font-size: 12px;
+}
+.titleActaInspeccion{
+    font-weight:bold;
+    text-align: center;
+    font-size: 16px;
+    padding-left: 50px;
+}
+.calleCentrada{
+    text-align: center;
+    font-size: 14px;
+    padding-left: 170px;
+}
+.lugarDerecha{
+    font-size: 14px;
+    padding-left: 170px;
+}
+.firmaIzquierda{
+    float: left;
+    font-size: 12px;
+    text-align: center;
+}
+.firmaDerecha{
+    font-size: 12px;
+    text-align: center;
+}
+.saltopagina {
+    page-break-after: always;
+}

@@ -1,0 +1,72 @@
+{% extends "base.twig" %}
+{% block refresh %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ paths.PATH_CSS }}normalize.css">
+
+    <link rel="stylesheet" href="{{ paths.PATH_CSS }}style.css" media="screen" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div id="encabezado">
+        <div id="imagenEncabezado">
+            <img src="{{ paths.PATH_IMAGES }}logosh.gif" width="100" height="100" longdesc="Colegio de Medicos - Distrito I" />
+        </div>
+        <div> 
+            <h3 style="margin-bottom: -15px;"> Colegio de M&eacute;dicos</h3>
+            <h4>Provincia  de Buenos Aires <br />
+                Distrito I </h4>
+        </div>
+    </div>
+    <h2>ELECCIONES DE CONSEJEROS
+        <br/>
+        <span><b>Año {{ anio }}</b></span></h2>
+
+    {% if (maximo == 0) %}
+        <div style="text-align: center">
+            <img src="{{ paths.PATH_IMAGES }}fondotitulo.jpg">
+        </div>
+    {% else %}
+
+        <table class="responstable">
+            <tr>
+                <th></th>
+                <th><strong>CANTIDAD DE VOTOS</strong></th>
+                <th><strong>COCIENTE</strong></th>
+                <th><strong>DELEGADOS</strong></th>
+            </tr>
+            {% for datos in datosTabla %}
+                <tr>  
+                    <td><strong>{{ datos.Nombre }}</strong></td>  
+                    <td>{{ datos.Cantidad }}</td>  
+                    <td>{{ datos.CocienteObtenido }}</td>  
+                    <td><strong>{{ datos.CantidadDelegados }}</strong></td>  
+                </tr>  
+            {% endfor %}
+        </table>
+        <hr>
+        <table class="responstable">
+            <tr>
+                <td class="fakeUno"><strong>CANTIDAD DE DELEGADOS:</strong> <span class="fakeValor">{{ delegados }}</span></td>
+                <td class="fakeUno"><strong>TOTAL VOTOS:</strong> <span class="fakeValor">{{ maximo }}</span></td>
+            </tr>
+            <tr>
+                <td class="fakeLeyenda"><strong>CANTIDAD DE VOTOS POSITIVOS:</strong></td>
+                <td class="fakeValor">{{ positivos }}</td>
+            </tr>	
+            <tr>
+                <td class="fakeLeyenda"><strong>CANTIDAD DE VOTOS ANULADOS:</strong></td>
+                <td class="fakeValor">{{ anulados }}</td>
+            </tr>	
+            <tr>
+                <td class="fakeLeyenda"><strong>CANTIDAD DE VOTOS EN BLANCO:</strong></td>
+                <td class="fakeValor">{{ blancos }}</td>
+            </tr>	
+            <tr>
+                <td class="fakeLeyenda"><strong>COCIENTE ELECTORAL:</strong></td>
+                <td class="fakeValor">{{ cociente }}</td>
+            </tr>	
+        </table>
+    {% endif %}
+
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js'></script>
+{% endblock %}

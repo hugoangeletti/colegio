@@ -1,0 +1,275 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	text-decoration: none;
+	background-color: #FFFFFF;
+}
+.fecha {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 11px;
+	color: #666;
+	font-weight: bold;
+}
+.direccion {
+	font-family: Arial, Helvetica, sans-serif;
+	color: 666666;
+	font-size: 12px;
+	text-decoration: none;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+.reunion {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #666666;
+}
+#boton1 {
+	position:absolute;
+	width:170px;
+	height:30px;
+	z-index:4;
+}
+#boton2 {
+	position: absolute;
+	height: 30px;
+	width: 112px;
+	z-index: 3;
+}
+
+#boton3 {
+	height: 30px;
+	width: 194px;
+	position: absolute;
+	z-index: 3;
+}
+#noticias01 {
+	position: relative;
+	width: 100%;
+	right: auto;
+	z-index: auto;
+	top: 4px;
+	height: 595px;
+	overflow: scroll;
+}
+#marquee {
+	background-color: #EDE7E0;
+	position: relative;
+	height: 340px;
+	width: 203px;
+	border: 2px solid #BA9270;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #873D00;
+	text-decoration: none;
+	padding: 10px;
+}
+
+#noticias02 {
+	position: relative;
+	width: 223px;
+	margin-right: 10px;
+	left: 4px;
+	overflow: scroll;
+}
+.pie {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #666666;
+}
+.titulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+}
+.subtitulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	color: #000000;
+}
+.texto {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 17px;
+	font-weight: normal;
+	color: #666666;
+	text-decoration: none;
+}
+.importante {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	color: #AB0000;
+}
+.titulogris {
+
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #999999;
+}
+.titulogris2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #999999;
+	text-decoration: none;
+}
+#contenidos {
+	position: relative;
+	width: 100%;
+	right: 5px;
+	z-index: auto;
+	top: 4px;
+	height: 580px;
+	overflow: auto;
+	bottom: 0px;
+}
+.linkcolegioycomunidad {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #49642D;
+	text-decoration: none;
+}
+.linksociedades {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+	text-decoration: none;
+	font-weight: normal;
+}
+.textoNegro {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 17px;
+	font-weight: normal;
+	color: #333;
+	text-decoration: none;
+	line-height: 19px;
+	text-align: justify;
+}
+.linkentidades {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #49642D;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.textoNegroBold {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+}
+.textoVerde {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #49642D;
+	text-decoration: none;
+}
+.textoMarron {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #773F19;
+	text-decoration: none;
+}
+.textoRojo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #BC302F;
+	text-decoration: none;
+}
+.textarea {
+	background-color: #FDEEEE;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #E9A9A9;
+	border-right-color: #E9A9A9;
+	border-bottom-color: #E9A9A9;
+	border-left-color: #E9A9A9;
+}
+.textoRojoBold {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #BC302F;
+	text-decoration: none;
+}
+.textoVerdeSubrayado {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #49642D;
+	text-decoration: underline;
+}
+.botonera {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #49642D;
+	text-decoration: none;
+	text-transform: none;
+}
+.botoneramarron {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #7F5935;
+	text-decoration: none;
+	text-transform: none;
+}
+.botonerablanca {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #EDE7E0;
+	text-decoration: none;
+	text-transform: none;
+}
+.textoMarquee {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #7F5935;
+	text-decoration: none;
+}
+.fechayHora {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+}
+.subtituloBlanco {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	color: #FFFFFF;
+}
+.linkuniversidades {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	color: #49642D;
+	text-decoration: none;
+	text-transform: none;
+}

@@ -1,0 +1,69 @@
+{% extends "base.twig" %}
+{% block content %}
+    <table width="1000">
+        <tr>
+            <td><img src="{{ paths.PATH_IMAGES }}cabezal.jpg" /></td>
+        </tr>	
+        <tr>
+            <td>  
+                <hr>
+                <p align="center" class="encabezadoRojo">ELECCIONES DE CONSEJEROS
+                    <br/>
+        </tr>
+        <tr>
+            <td>
+                <div align="center">
+                    <table width="1000" cellspacing="0" cellpadding="2">  
+                        <tr>
+                            <td width="2%"></td>
+                            <td width="30%"></td>
+                            <td width="5%" style="color:#FF0000;" align="center"><strong>CANTIDAD DE VOTOS</strong></td>
+                            <td width="5%" style="color:#FF0000;" align="center"><strong>COCIENTE</strong></td>
+                            <td width="5%" style="color:#FF0000;" align="center"><strong>DELEGADOS</strong></td>
+                        </tr>
+                        {% for datos in datosTabla %}
+                            <tr>  
+                                <td width="2%"></td>
+                                <td width="30%" class="resultadosListas"><strong>{{ datos.Nombre }}</strong></td>  
+                                <td width="5%" align="center" class="resultadosValorListas">{{ datos.Cantidad }}</td>  
+                                <td width="5%" align="center" class="resultadosValorListas">{{ datos.CocienteObtenido }}</td>  
+                                <td width="5%" align="center" class="resultadosValorListas"><strong>{{ datos.CantidadDelegados }}</strong></td>  
+                            </tr>  
+                        {% endfor %}
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr>
+                <table width="100%" style="margin-left: 100px">
+                    <tr>
+                        <td class="leyendaUno">CANTIDAD DE DELEGADOS: <span class="resultadosValor">{{ delegados }}</span></td>
+                        <td class="leyendaUno">TOTAL VOTOS: <span class="resultadosValor">{{ maximo }}</span></td>
+                    </tr>
+                </table>
+                <br>
+                <table style="margin-left: 100px">			
+                    <tr>
+                        <td class="resultadosLeyenda">CANTIDAD DE VOTOS POSITIVOS:</td>
+                        <td class="resultadosValor">{{ positivos }}</td>
+                    </tr>	
+                    <tr>
+                        <td class="resultadosLeyenda">CANTIDAD DE VOTOS ANULADOS:</td>
+                        <td class="resultadosValor">{{ anulados }}</td>
+                    </tr>	
+                    <tr>
+                        <td class="resultadosLeyenda">CANTIDAD DE VOTOS EN BLANCO:</td>
+                        <td class="resultadosValor">{{ blancos }}</td>
+                    </tr>	
+                    <tr>
+                        <td class="resultadosLeyenda">COCIENTE ELECTORAL:</td>
+                        <td class="resultadosValor">{{ cociente }}</td>
+                    </tr>	
+                </table>
+                <hr/>
+            </td>
+        </tr>	
+    </table>
+{% endblock %}

@@ -1,0 +1,3 @@
+.mensajeOK{background-color: #E0FFE0;border-color: #208020;border-width: 1px;width: 100%; border-style: solid;text-align: center;color: #208020;padding-top: 10px;padding-bottom: 10px;    }
+.mensajeERROR{background-color: #FEF8F6;border-color: #D50A3C;border-width: 1px;width: 100%; border-style: solid;text-align: center;color: #D50A3C;padding-top: 10px;padding-bottom: 10px;    }
+.mensajeWARNING{background-color: #FCFAF1;border-color: #FCEFA1;border-width: 1px;width: 100%; border-style: solid;text-align: center;color: #000000;padding-top: 10px;padding-bottom: 10px;    }

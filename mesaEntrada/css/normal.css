@@ -1,0 +1,33 @@
+.BODY {
+	FONT-SIZE: 10pt; MARGIN: 0px; COLOR: #fff; FONT-FAMILY: "Futura-CondensedMedium", Futura Condensed, Helvetica Neue, Helvetica, Arial, sans-serif; BACKGROUND-COLOR: #e4e5ea; TEXT-ALIGN: left
+}
+
+.fondo{
+	FONT-SIZE: 10pt; MARGIN: 0px; COLOR: #fff; FONT-FAMILY: "Futura-CondensedMedium", Futura Condensed, Helvetica Neue, Helvetica, Arial, sans-serif; BACKGROUND-COLOR: #e4e5ea; TEXT-ALIGN: left
+}
+
+.secciones {
+	FONT-SIZE: 24px;
+	color: #999999;
+}
+.resoluciones {
+	FONT-SIZE: 10px; BACKGROUND-COLOR: #08d; TEXT-ALIGN: center
+}
+A:link {
+	TEXT-DECORATION: none;
+	color: #000000;
+}
+A:visited {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+.titulos {
+	FONT-SIZE: 18px;
+	color: #666666;
+}
+.titulos2 {
+	FONT-SIZE: 16px;
+	color: #666666;
+}

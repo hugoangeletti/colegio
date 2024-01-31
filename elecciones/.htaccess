@@ -1,0 +1,18 @@
+#AddHandler x-httpd-php5 .php
+# 
+
+
+Options +FollowSymLinks  
+RewriteEngine On  
+
+RewriteBase /colegio/elecciones
+#IndexOptions +Charset=UTF-8
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f  
+
+RewriteRule ^(.*)/?$ controller/controladorVista.php?seccion=$1 [L]
+
+RewriteRule ^([^/\.]+)/?$ php/$1.php? [L]
+
+
+ErrorDocument 404 http://www.colmed1.com/colegio/elecciones

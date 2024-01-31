@@ -1,0 +1,342 @@
+﻿/* ELEMENTS */
+
+body
+{
+	color: black;
+	font-family: Arial, Tahoma, Verdana;
+	font-size: 12pt;
+	margin:0;
+}
+
+p
+{
+	margin: 6pt 0 3pt 0;
+}
+
+h1, h2, h3, h4, h5
+{
+	font-weight: normal;
+	color: dodgerblue;
+	margin: 6pt 0 3pt 0;
+}
+
+h1
+{
+	font-size: 2em;
+}
+
+h2
+{
+	font-size: 1.5em;
+}
+
+h3
+{
+	font-size: 1.25em;
+}
+
+h4
+{
+	font-size: 1em;
+	font-weight: bold;
+}
+
+hr
+{
+	height: 1px;
+	border: 1px dotted gainsboro;
+}
+
+a, a:link, a:visited
+{
+	color: dodgerblue;
+	text-decoration: none;
+}
+
+a:hover, a:active
+{
+	color: firebrick;
+	text-decoration: underline;
+}
+
+fieldset
+{
+padding-top:15px;
+padding-bottom: 15px;
+padding-left: 15px;
+padding-right: 15px;
+}
+
+/* LAYOUT */
+
+#page
+{
+	width: 780px;
+	margin: 0 auto;
+	clear: both;
+}
+
+#header
+{
+	clear: both;
+}
+
+#header img
+{
+	margin: 0;
+	border: 0;
+}
+
+#menubar
+{
+	color: black;
+	background-color: gainsboro;
+	border-top: white 1px solid;
+	border-bottom: gray 1px solid;
+	padding:5px;
+	clear: both;
+	text-transform:uppercase;
+	font-size:0.8em;
+}
+
+#menubar a
+{
+	color: black;
+	padding: 0px 10px;	
+}
+
+#menubar .menu
+{
+}
+
+#menubar .menuitem
+{
+}
+
+#menubar img
+{
+	display: none;
+}
+
+
+#footer
+{
+	/*background: #4d4d4f;
+	padding: 5px;
+	color: white;
+	font-size: 12px;*/
+	margin-top:20px;
+	padding: 10px 0px;
+	border-top: gainsboro 3px solid;
+	text-align: right;
+}
+
+#footer a
+{
+    color: white;
+}
+ 
+#wrap 
+{ 
+	min-width: 960px; max-width: 1260px;
+	margin: 0 auto; padding: 0 10px;
+	width:expression(document.body.clientWidth < 961? "960px" : document.body.clientWidth > 1261? "1260px" : "auto");
+}
+.cuerpo1260{
+    min-width: 960px;
+	margin: 0 auto; padding: 0 10px;
+        width:1260px;
+}
+
+.cuerpo960{
+    min-width: 960px; max-width: 1260px;
+	margin: 0 auto; padding: 0 10px;
+        width:960px;
+}
+
+#wrap-cuerpo 
+{ 
+	margin:0 auto 0 auto;
+	width:800px;
+	text-align:left;
+	padding-bottom:2px; 
+	padding-right:6px; 
+	padding-left:6px
+}
+
+/* CONTROLES */
+
+.button
+{
+	font-size: 10pt;
+	width: 100px;
+}
+
+.textbox
+{
+	font-size: 8pt;
+}
+
+.error
+{
+	color: Red;
+}
+
+.info
+{
+	color: Green;
+}
+
+.popup
+{
+	border: 1px solid Black;
+	background-color: White;
+	position: absolute;
+	padding: 10px;
+}
+
+.popup-background
+{
+	background-color: Gray;
+	filter: alpha(opacity=75);
+	opacity: 0.75;	
+}
+
+/* GRID */
+
+.grid
+{
+	background-color: white;
+	border: lightgrey 1px solid;
+}
+
+.grid th
+{
+	color: black;
+	background-color: whitesmoke;
+	padding: 6px 2px;
+	border-top: gainsboro 1px solid;
+	border-bottom: gainsboro 1px solid;
+	border-right: gainsboro 1px solid;
+	font-weight: bold;
+}
+
+.grid td
+{
+	padding: 2px;
+	border-bottom: 1px solid gainsboro;
+}
+
+.grid-row
+{
+	background-color: white;
+}
+
+.grid-alternating-row
+{
+	background-color: #fafafa;
+}
+
+.grid-edit-row, .grid-selected-row
+{
+	background-color: #FFCC66;
+}
+
+.grid-pager
+{
+	background-color: whitesmoke;
+	font-weight: bold;
+	text-align: left;
+}
+
+.grid-pager td
+{
+	border: 0px;
+}
+
+.grid-footer
+{
+	background-color: whitesmoke;
+	font-weight: bold;
+}
+
+/* LOGIN */
+
+.login
+{
+	color: White;
+	background-color: gainsboro;
+	background-position: left bottom;
+	background-repeat: repeat-x;
+/*	border: 1px solid black;*/
+	padding: 10px;
+	width: 250px;
+	margin: 30px auto !important;
+}
+
+.login h1
+{
+	color: White;
+}
+
+.login hr
+{
+	border: 1px dotted white;
+}
+
+.loginBar
+{
+	text-align:right;
+	padding:5px;
+}
+
+.loginBar span
+{
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.progress
+{
+	background: url(images/progress.gif) no-repeat;
+	padding-left: 20px;
+	float:right;
+}
+
+input.groovybutton
+{
+   font-size:16px;
+   font-family:Arial,sans-serif;
+   height:30px;
+   color:#000033;
+   background-color:#779999;
+   background-image:url(back03.gif);
+   border-style:solid;
+   border-color:#DDDDDD;
+   border-width:1px;
+}
+
+input.buttonTarea
+{
+   font-size:13px;
+   font-family:Arial,sans-serif;
+   font-weight:bold;
+   color:#FFFFFF;
+   height:50px;
+   width:150px;
+/*   background-color:#EE7777;*/
+   background-color:#009999;
+}
+
+input.buttonTareaLong
+{
+   font-size:13px;
+   font-family:Arial,sans-serif;
+   font-weight:bold;
+   color:#FFFFFF;
+   height:30px;
+   width:200px;
+/*   background-color:#EE7777;*/
+   background-color:#009999;
+}
+
