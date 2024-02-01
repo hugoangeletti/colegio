@@ -283,7 +283,7 @@ if (isset($_GET['idColegiado']) || isset($_POST['idColegiado'])) {
                                 <label>Env&iacute;a por mail?</label>
                                 <label class="radio-inline"><input type="radio" name="enviaMail" id="enviaMail" value="S" <?php if ($enviaMail == 'S') { ?> checked="" <?php } ?>>Si</label>
                                 <label class="radio-inline"><input type="radio" name="enviaMail" id="enviaMail" value="N" <?php if ($enviaMail == 'N') { ?> checked="" <?php } ?>>No</label>
-                                <input type="email" class="form-control" id="mail" name="mail" value="<?php echo $mail; ?>" placeholder="Ingrese un correo electrónico válido" >
+                                <input type="text" class="form-control" id="mail" name="mail" value="<?php echo $mail; ?>" placeholder="Ingrese un correo electrónico válido" >
                             </div>
                         <?php
                         } else {

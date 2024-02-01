@@ -84,6 +84,7 @@ if (isset($_POST['mensaje'])) {
     $tituloDigital = $_POST['tituloDigital'];
     $idUniversidad = $_POST['idUniversidad'];
     $universidad_buscar = $_POST['universidad_buscar'];
+    $fechaRevalida = $_POST['fechaRevalida'];
     $numeroDocumento = $_POST['numeroDocumento'];
     $matriculaNacional = $_POST['matriculaNacional'];
     $sexo = $_POST['sexo'];
@@ -144,6 +145,7 @@ if (isset($_POST['mensaje'])) {
     $nacionalidad_buscar = "";
     $idTipoTitulo = 1;
     $fechaTitulo = NULL;
+    $fechaRevalida = NULL;
     if ($esOtroDistrito) {
         $tituloDigital = NULL;
         $idUniversidad = NULL;
@@ -306,7 +308,7 @@ $fechaLimite = sumarRestarSobreFecha(date('Y-m-d'), 23, 'year', '-');
                 </select>
             </div>
             <div class="col-md-2">
-                <label>Fecha T&iacute;tulo * </label>
+                <label>Fecha Expedición Título * </label>
                 <input class="form-control" type="date" name="fechaTitulo" max="<?php echo date('Y-m-d'); ?>" value="<?php echo $fechaTitulo; ?>" required=""/>
             </div>
             <div class="col-md-1">
@@ -334,10 +336,14 @@ $fechaLimite = sumarRestarSobreFecha(date('Y-m-d'), 23, 'year', '-');
                 }
                 ?>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Otorgado por *</label>
-                <input class="form-control" type="text" name="universidad_buscar" id="universidad_buscar" value="<?php echo $universidad_buscar; ?>" placeholder="Ingrese universidad a buscar" required=""/>
+                <input class="form-control" type="text" name="universidad_buscar" id="universidad_buscar" value="<?php echo $universidad_buscar; ?>" placeholder="Ingrese universidad a buscar" required="" />
                 <input type="hidden" name="idUniversidad" id="idUniversidad" value="<?php echo $idUniversidad; ?>" required="" />
+            </div>
+            <div class="col-md-2">
+                <label>Fecha Reválida/Conválida </label>
+                <input class="form-control" type="date" name="fechaRevalida" max="<?php echo date('Y-m-d'); ?>" value="<?php echo $fechaRevalida; ?>" />
             </div>
         </div>
         <div class="row">&nbsp;</div>
@@ -507,4 +513,5 @@ require_once '../html/footer.php';
             });
         }
     });  
+
 </script>

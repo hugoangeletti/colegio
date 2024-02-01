@@ -987,8 +987,9 @@ if (!$continua){
                         switch ($articulo) {
                             case '52c':
                                 // le sumo 10 años a la fecha de la sancion para ver si caducó
-                                $fechaLimite = sumarRestarSobreFecha($fechaDesde, 10, 'year', '+');
-                                if ($fechaDesde <= $fechaLimite) {
+                                // le sumo 5 años a la fecha de la sancion para ver si caducó (1/2/2024)
+                                $fechaLimite = sumarRestarSobreFecha($fechaDesde, 5, 'year', '+');
+                                if ($fechaLimite <= date('Y-m-d')) {
                                     //$sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
                                     $sanciones = 'Art. 52c Decreto-Ley 5413/58'; 
                                 }

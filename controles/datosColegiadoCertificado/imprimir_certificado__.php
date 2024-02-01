@@ -20,11 +20,8 @@ require_once ('../../dataAccess/notaCambioDistritoLogic.php');
 require_once ('../../dataAccess/tipoCertificadoLogic.php');
 require_once ('../../dataAccess/colegiadoArchivoLogic.php');
 
-//require_once('../../tcpdf/config/lang/spa.php');
-//require_once('../../tcpdf/tcpdf.php');
-
-require_once('../../TCPDF-php8-main/tcpdf.php');
-
+require_once('../../tcpdf/config/lang/spa.php');
+require_once('../../tcpdf/tcpdf.php');
 
 class MYPDF extends TCPDF 
 {
@@ -68,7 +65,6 @@ class MYPDF extends TCPDF
         }
 
 }
-
 ?>
 <?php
 $continua = TRUE;
@@ -113,7 +109,6 @@ if (isset($_GET['idCertificado'])) {
         $conFirma = $certificado['conFirma'];
         $conLeyendaTeso = $certificado['conLeyendaTeso'];
         $codigoDeudor = $certificado['estadoConTesoreria'];
-        $hash_qr = $certificado['hash_qr'];
         
         //obtengo el estado con tesoreria
         $resEstadoTesoreria = estadoTesoreria($codigoDeudor);
@@ -298,7 +293,7 @@ if (!$continua){
                             
                         //Fecha de Caducidad, si es del I, verifica que la fecha sea mayor a 27/09/1994 y no sea Consultor
                         if ($distritoOrigen <> "NACIÓN") {
-                            $resFechaPorTipo = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, JERARQUIZADO);
+                            $resFechaPorTipo = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, 'J');
                             if ($resFechaPorTipo['estado']) {
                                 $esJerarquizado = TRUE;
                                 /*
@@ -329,7 +324,7 @@ if (!$continua){
                                 $esJerarquizado = FALSE;
                                 $htmlJerarquizado = '';
                             }
-                            $resFechaPorTipo = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, CONSULTOR);
+                            $resFechaPorTipo = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, 'C');
                             if ($resFechaPorTipo['estado']) {
                                 $esConsultor = TRUE;
                                 /*
@@ -581,7 +576,6 @@ if (!$continua){
 
             $alturaLinea = 6;
             $pdf->Ln(5);
-
             //imprimir QR
             $style = array(
                     'border' => true,
@@ -592,31 +586,24 @@ if (!$continua){
                     'module_width' => 1, // width of a single module in points
                     'module_height' => 1 // height of a single module in points
                 );
-            //$codigoQR = 'http://www.colmed1.com.ar/portal/controls/certificado.php?id='.$idCertificado.'&colegiado='.$idColegiado.'&tipo='.$idTipoCertificado;
-            $codigoQR = 'https://www.colmed1.com.ar/verificar/certificado.php?id='.$hash_qr;
+            $codigoQR = 'http://www.colmed1.com.ar/portal/controls/certificado.php?id='.$idCertificado.'&colegiado='.$idColegiado.'&tipo='.$idTipoCertificado;
+            //$codigoQR = 'http://www.colmed1.com/desarrollo/portal/controls/certificado.php?id='.$idCertificado.'&colegiado='.$idColegiado.'&tipo='.$idTipoCertificado;
+            //$pdf->write2DBarcode('http://www.colmed1.com/desarrollo/ws-colmed/certificado.php?id='.$idCertificado, 'QRCODE,Q', 7,62,15,15, $style, 'N');
             $pdf->write2DBarcode($codigoQR, 'QRCODE,Q', 32,25,25,25, $style, 'N');
-            //fin QR
 
+            /*
+            $pdf->SetFont('dejavusans','',5);
+            $pdf->MultiCell(19, 2, 'FIRST QR', 1, 'C',false, 0, 5, 78, true, 0, false, true, 0, 'T', false);
+            $pdf->MultiCell(19, 2, 'SECOND QR', 1, 'C',false, 0, 30, 78, true, 0, false, true, 0, 'T', false);
+             * 
+             */
+            //fin QR
             //imprimo la planilla
             $pdf->SetFont('dejavusans', '', 10);
-            /*
             if ($tieneFotoFirma) {
                 $pic = 'data://text/plain;base64,' . base64_encode($contents);
                 $pdf->Image($pic , 170 ,25, 25 , 25,'JPG');
                 $pdf->Ln(10);
-            }
-            */
-            if ($tieneFotoFirma) {
-                $pic = 'data:image/jpg;base64,' . base64_encode($contents);
-                $img_base64_encoded = $pic;
-                $imageContent = file_get_contents($img_base64_encoded);
-                $path = tempnam(sys_get_temp_dir(), 'prefix');
-
-                file_put_contents ($path, $imageContent);
-
-                $img = '<img src="' . $path . '"  width="100" height="100">';
-                $pdf->SetXY(170, 25);
-                $pdf->writeHTMLCell(0, 0, '', '', $img, '', 1, 0, true, 'R', true);            
             }
             
             $pdf->SetFont('dejavusans', '', 10);
@@ -868,13 +855,13 @@ if (!$continua){
                             $verVencimiento = TRUE;
                             if ($otorgadaPor <> "NAC") {
                                 //imprimo JER y CON si no es de NACION
-                                $resJerarquizado = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, JERARQUIZADO);
+                                $resJerarquizado = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, 'J');
                                 if ($resJerarquizado['estado']) {
                                     //$pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resJerarquizado['fecha']), 0, 'L', false, 0, '125', '', true);
                                     $pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resJerarquizado['fecha']), 0, 'L', false, 0, $columna_fechas, '', true);
                                     $columna_fechas += $proxima_columna;
 
-                                    $resConsultor = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, CONSULTOR);
+                                    $resConsultor = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, 'C');
                                     if ($resConsultor['estado']) {
                                         //$pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resConsultor['fecha']), 0, 'L', false, 0, '144', '', true);
                                         $pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resConsultor['fecha']), 0, 'L', false, 0, $columna_fechas, '', true);
@@ -1000,12 +987,9 @@ if (!$continua){
                         switch ($articulo) {
                             case '52c':
                                 // le sumo 10 años a la fecha de la sancion para ver si caducó
-                                //$dia = date($fechaDesde, 'd');
-                                //$mes = date($fechaDesde, 'm');
-                                //$anio = date($fechaDesde, 'Y') + 10;
-                                //$fechaMasDiez = $anio.'-'.$mes.'-'.$dia;
+                                // se modifica la cantidad de años a 5, desde el 1/2/2024
                                 $fechaLimite = sumarRestarSobreFecha($fechaDesde, 5, 'year', '+');
-                                if ($fechaLimite >= date('Y-m-d')) {
+                                if ($fechaDesde <= $fechaLimite) {
                                     //$sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
                                     $sanciones = 'Art. 52c Decreto-Ley 5413/58'; 
                                 }
@@ -1013,7 +997,7 @@ if (!$continua){
 
                             case '40c':
                                 $fechaActual = date('Y-m-d'); 
-                                if ($fechaDesde <= $fechaActual && $fechaActual <= $fechaHasta) {
+                                if ($fechaDesde<=$fechaActual && $fechaHasta>=$fechaActual) {
                                     //$sanciones = $ley .' '. cambiarFechaFormatoParaMostrar($fechaDesde) .' al '. cambiarFechaFormatoParaMostrar($fechaHasta) .' Art.:'. $articulo; 
                                     $sanciones = 'Art. 40c Decreto-Ley 5413/58'; 
                                 }
@@ -1044,9 +1028,9 @@ if (!$continua){
                 if ($resMovimiento['estado']) {
                     $pdf->MultiCell(0, $alturaLinea, $indice.'. Movimientos matriculares:', 0, 'L', false, 1, '', '', true);
                     
-                    if (isset($resMovimiento['datos']) && sizeof($resMovimiento['datos'])>1) {
+                    if (count($resMovimiento['datos'])>1) {
                         
-                        if (sizeof($resMovimiento['datos'])>5) {
+                        if (count($resMovimiento['datos'])>5) {
                             $pdf->SetFont('dejavusans', '', 8);
                             $alturaLineaMov = 5;
                         } else {
