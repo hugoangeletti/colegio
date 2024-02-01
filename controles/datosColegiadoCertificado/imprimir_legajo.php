@@ -19,10 +19,11 @@ require_once ('../../dataAccess/presidenteLogic.php');
 require_once ('../../dataAccess/notaCambioDistritoLogic.php');
 require_once ('../../dataAccess/tipoCertificadoLogic.php');
 require_once ('../../dataAccess/colegiadoArchivoLogic.php');
+require_once ('../../dataAccess/resolucionesLogic.php');
 
-require_once('../../tcpdf/config/lang/spa.php');
-require_once('../../tcpdf/tcpdf.php');
-//require_once('../../TCPDF-php8-main/tcpdf.php');
+//require_once('../../tcpdf/config/lang/spa.php');
+//require_once('../../tcpdf/tcpdf.php');
+require_once('../../TCPDF-php8-main/tcpdf.php');
 class MYPDF extends TCPDF 
 {
         //Page header
@@ -393,13 +394,13 @@ if ($continua){
                             $verVencimiento = TRUE;
                             if ($otorgadaPor <> "NAC") {
                                 //imprimo JER y CON si no es de NACION
-                                $resJerarquizado = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, 'J');
+                                $resJerarquizado = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, JERARQUIZADO);
                                 if ($resJerarquizado['estado']) {
                                     //$pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resJerarquizado['fecha']), 0, 'L', false, 0, '125', '', true);
                                     $pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resJerarquizado['fecha']), 0, 'L', false, 0, $columna_fechas, '', true);
                                     $columna_fechas += $proxima_columna;
 
-                                    $resConsultor = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, 'C');
+                                    $resConsultor = obtenerFechaJerarquizadoConsultor($idColegiadoEspecialista, CONSULTOR);
                                     if ($resConsultor['estado']) {
                                         //$pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resConsultor['fecha']), 0, 'L', false, 0, '144', '', true);
                                         $pdf->MultiCell(0, $alturaLinea, cambiarFechaFormatoParaMostrar($resConsultor['fecha']), 0, 'L', false, 0, $columna_fechas, '', true);
