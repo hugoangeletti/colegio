@@ -118,47 +118,6 @@ function agregarResolucion($numero, $fecha, $detalle, $tipoResolucion){
         $resultado = array(); 
         if (mysqli_stmt_errno($stmt)==0) {
             $idResolucion = $conect->insert_id;
-            //agrego el detalle de la resolucion
-            /*
-            $hayIdsMesaEntrada = 0;
-            foreach ($idsMesaEntrada as $idMesaEntradaEspecialidad) {
-                //con el idMesaEntradaEspecialidad vamos a buscar los datos para completar resoluciondetalle
-                $resMesaEntradaEspecialidad = obtenerMesaEntradaEspecialistaPorId($idMesaEntradaEspecialidad);
-                if ($resMesaEntradaEspecialidad['estado']) {
-                    $mesaEntradaEspecialidad = $resMesaEntradaEspecialidad['datos'];
-                    $idEspecialidad = $mesaEntradaEspecialidad['idEspecialidad'];
-                    $tipoEspecialista = $mesaEntradaEspecialidad['tipoTramiteEspecialista'];
-                    $idColegiado = $mesaEntradaEspecialidad['idColegiado'];
-                    $inciso = $mesaEntradaEspecialidad['inciso'];
-                    $sql = "INSERT INTO resoluciondetalle 
-                            (IdResolucion, Especialidad, TipoEspecialista, Estado, IdColegiado, IncisoArticulo8, IdMesaEntradaEspecialidad)
-                            VALUES (?, ?, ?, '0', ?, ?, ?)";
-                    $stmt = $conect->prepare($sql);
-                    $stmt->bind_param('iisisi', $idResolucion, $idEspecialidad, $tipoEspecialista, $idColegiado, $inciso, $idMesaEntradaEspecialidad);
-                    $stmt->execute();
-                    $stmt->store_result();
-                    if (mysqli_stmt_errno($stmt) != 0) {
-                        $hayIdsMesaEntrada = -1;
-                    }
-                    $hayIdsMesaEntrada++;
-                } else {
-                    $hayIdsMesaEntrada = -2;
-                }
-            }
-            if ($hayIdsMesaEntrada > 0) {
-                $resultado['estado'] = TRUE;
-                $resultado['idResolucion'] = $idResolucion;
-                $resultado['mensaje'] = "OK";
-                $resultado['clase'] = 'alert alert-success'; 
-                $resultado['icono'] = 'glyphicon glyphicon-ok'; 
-            } else {
-                $resultado['estado'] = FALSE;
-                $resultado['mensaje'] = "ERROR AL GENERAR EL DETALLE";
-                $resultado['clase'] = 'alert alert-error'; 
-                $resultado['icono'] = 'glyphicon glyphicon-remove';
-            }
-             * 
-             */
             $resultado['estado'] = TRUE;
             $resultado['idResolucion'] = $idResolucion;
             $resultado['mensaje'] = "OK";
@@ -295,77 +254,68 @@ function cambiarEstadoResolucion($idResolucion, $estadoOrigen, $estadoCambio){
 function obtenerMatriculasPorIdResolucion($idResolucion){
     $conect = conectar();
     mysqli_set_charset( $conect, 'utf8');
-    $sql = "(SELECT resoluciondetalle.Id, resoluciondetalle.TipoEspecialista, tipoespecialista.Nombre, especialidad.Especialidad, colegiado.Matricula, persona.Apellido, persona.Sexo,
-                persona.Nombres, resoluciondetalle.FechaAprobada, resoluciondetalle.IncisoArticulo8, resoluciondetalle.Estado,
-                mesaentradaespecialidad.NumeroExpediente, mesaentradaespecialidad.AnioExpediente, '' as FechaEspecialista, '' as FechaEspecialista2, '' as FechaRecertificacion, '' as FechaVencimiento, te2.Nombre AS Origen, colegiadoespecialista.IncisoArticulo8 AS EspecialistaInciso, te2.Codigo AS CodigoEspecialista, colegiadoespecialista.HashQR, colegiadoespecialista.Id, NULL AS por_recertificacion
-            FROM resoluciondetalle
-            INNER JOIN colegiado ON(colegiado.Id = resoluciondetalle.IdColegiado)
-            INNER JOIN persona ON(persona.Id = colegiado.IdPersona)
-            INNER JOIN especialidad ON(especialidad.Id = resoluciondetalle.Especialidad)
-            INNER JOIN tipoespecialista ON(tipoespecialista.Codigo = resoluciondetalle.TipoEspecialista)
-            LEFT JOIN mesaentradaespecialidad ON(mesaentradaespecialidad.IdMesaEntradaEspecialidad = resoluciondetalle.IdMesaEntradaEspecialidad)
-            LEFT JOIN colegiadoespecialista ON(colegiadoespecialista.IdColegiado = colegiado.Id AND colegiadoespecialista.Especialidad = especialidad.Id AND colegiadoespecialista.Estado = 'A')
-            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = colegiadoespecialista.IdTipoEspecialista)
-            WHERE resoluciondetalle.IdResolucion = ? AND resoluciondetalle.TipoEspecialista = 'C'
-            ORDER BY colegiado.Matricula)
+    $sql = "(SELECT rd.Id, rd.IdTipoEspecialista, te.Nombre, e.Especialidad, c.Matricula, p.Apellido, p.Sexo, p.Nombres, rd.FechaAprobada, rd.IncisoArticulo8, rd.Estado, mee.NumeroExpediente, mee.AnioExpediente, '' as FechaEspecialista, '' as FechaEspecialista2, '' as FechaRecertificacion, '' as FechaVencimiento, te2.Nombre AS Origen, ce.IncisoArticulo8 AS EspecialistaInciso, te2.IdTipoEspecialista, ce.HashQR, ce.Id, NULL AS por_recertificacion
+            FROM resoluciondetalle rd
+            INNER JOIN colegiado c ON c.Id = rd.IdColegiado
+            INNER JOIN persona p ON p.Id = c.IdPersona
+            INNER JOIN especialidad e ON e.Id = rd.Especialidad
+            INNER JOIN tipoespecialista te ON te.IdTipoEspecialista = rd.IdTipoEspecialista
+            LEFT JOIN mesaentradaespecialidad mee ON mee.IdMesaEntradaEspecialidad = rd.IdMesaEntradaEspecialidad
+            LEFT JOIN colegiadoespecialista ce ON (ce.IdColegiado = c.Id AND ce.Especialidad = e.Id AND ce.Estado = 'A')
+            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = ce.IdTipoEspecialista)
+            WHERE rd.IdResolucion = ? AND rd.IdTipoEspecialista = ".CONSULTOR."
+            ORDER BY c.Matricula)
             
 UNION ALL
 
-(SELECT resoluciondetalle.Id, resoluciondetalle.TipoEspecialista, tipoespecialista.Nombre, especialidad.Especialidad, colegiado.Matricula, persona.Apellido, persona.Sexo,
-                persona.Nombres, resoluciondetalle.FechaAprobada, resoluciondetalle.IncisoArticulo8, resoluciondetalle.Estado,
-                mesaentradaespecialidad.NumeroExpediente, mesaentradaespecialidad.AnioExpediente, '' as FechaEspecialista, '' as FechaEspecialista2, '' as FechaRecertificacion, '' as FechaVencimiento, te2.Nombre AS Origen, colegiadoespecialista.IncisoArticulo8 AS EspecialistaInciso, te2.Codigo AS CodigoEspecialista, colegiadoespecialista.HashQR, colegiadoespecialista.Id, NULL AS por_recertificacion
-            FROM resoluciondetalle
-            INNER JOIN colegiado ON(colegiado.Id = resoluciondetalle.IdColegiado)
-            INNER JOIN persona ON(persona.Id = colegiado.IdPersona)
-            INNER JOIN especialidad ON(especialidad.Id = resoluciondetalle.Especialidad)
-            INNER JOIN tipoespecialista ON(tipoespecialista.Codigo = resoluciondetalle.TipoEspecialista)
-            LEFT JOIN mesaentradaespecialidad ON(mesaentradaespecialidad.IdMesaEntradaEspecialidad = resoluciondetalle.IdMesaEntradaEspecialidad)
-            LEFT JOIN colegiadoespecialista ON(colegiadoespecialista.IdColegiado = colegiado.Id AND colegiadoespecialista.Especialidad = especialidad.Id AND colegiadoespecialista.Estado = 'A')
-            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = colegiadoespecialista.IdTipoEspecialista)
-            WHERE resoluciondetalle.IdResolucion = ? AND resoluciondetalle.TipoEspecialista = 'J'
-            ORDER BY colegiado.Matricula)
+(SELECT rd.Id, rd.IdTipoEspecialista, te.Nombre, e.Especialidad, c.Matricula, p.Apellido, p.Sexo, p.Nombres, rd.FechaAprobada, rd.IncisoArticulo8, rd.Estado, mee.NumeroExpediente, mee.AnioExpediente, '' as FechaEspecialista, '' as FechaEspecialista2, '' as FechaRecertificacion, '' as FechaVencimiento, te2.Nombre AS Origen, ce.IncisoArticulo8 AS EspecialistaInciso, te2.IdTipoEspecialista, ce.HashQR, ce.Id, NULL AS por_recertificacion
+            FROM resoluciondetalle rd
+            INNER JOIN colegiado c ON c.Id = rd.IdColegiado
+            INNER JOIN persona p ON p.Id = c.IdPersona
+            INNER JOIN especialidad e ON e.Id = rd.Especialidad
+            INNER JOIN tipoespecialista te ON te.IdTipoEspecialista = rd.IdTipoEspecialista
+            LEFT JOIN mesaentradaespecialidad mee ON mee.IdMesaEntradaEspecialidad = rd.IdMesaEntradaEspecialidad
+            LEFT JOIN colegiadoespecialista ce ON (ce.IdColegiado = c.Id AND ce.Especialidad = e.Id AND ce.Estado = 'A')
+            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = ce.IdTipoEspecialista)
+            WHERE rd.IdResolucion = ? AND rd.IdTipoEspecialista = ".JERARQUIZADO."
+            ORDER BY c.Matricula)
             
 UNION ALL
 
-(SELECT resoluciondetalle.Id, resoluciondetalle.TipoEspecialista, tipoespecialista.Nombre, especialidad.Especialidad, colegiado.Matricula, persona.Apellido, persona.Sexo,
-                persona.Nombres, resoluciondetalle.FechaAprobada, resoluciondetalle.IncisoArticulo8, resoluciondetalle.Estado,
-                mesaentradaespecialidad.NumeroExpediente, mesaentradaespecialidad.AnioExpediente, colegiadoespecialista.FechaEspecialista, (SELECT MAX(ce2.FechaEspecialista) FROM colegiadoespecialista ce2 WHERE ce2.IdColegiado = resoluciondetalle.IdColegiado AND ce2.Especialidad = resoluciondetalle.Especialidad) AS FechaEspecialista2,
-                resoluciondetalle.FechaRecertificacion, colegiadoespecialista.FechaVencimiento, te2.Nombre AS Origen, colegiadoespecialista.IncisoArticulo8 AS EspecialistaInciso, te2.Codigo AS CodigoEspecialista, colegiadoespecialista.HashQR, colegiadoespecialista.Id, cer.IdColegiadoEspecialista AS por_recertificacion
-            FROM resoluciondetalle
-            INNER JOIN colegiado ON(colegiado.Id = resoluciondetalle.IdColegiado)
-            INNER JOIN persona ON(persona.Id = colegiado.IdPersona)
-            INNER JOIN especialidad ON(especialidad.Id = resoluciondetalle.Especialidad)
-            LEFT JOIN tipoespecialista ON(tipoespecialista.Codigo = resoluciondetalle.TipoEspecialista)
-            LEFT JOIN mesaentradaespecialidad ON(mesaentradaespecialidad.IdMesaEntradaEspecialidad = resoluciondetalle.IdMesaEntradaEspecialidad)
-            LEFT JOIN colegiadoespecialista ON(colegiadoespecialista.IdResolucionDetalle = resoluciondetalle.Id AND colegiadoespecialista.Estado = 'A')
-            LEFT JOIN colegiadoespecialistarecertificaciones cer ON cer.IdResolucionDetalle = resoluciondetalle.Id
-            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = colegiadoespecialista.IdTipoEspecialista)
-            WHERE resoluciondetalle.IdResolucion = ? AND resoluciondetalle.TipoEspecialista NOT IN('C', 'J', 'R') AND resoluciondetalle.Estado IN(0, 1) 
-            ORDER BY colegiado.Matricula)
+(SELECT rd.Id, rd.IdTipoEspecialista, te.Nombre, e.Especialidad, c.Matricula, p.Apellido, p.Sexo, p.Nombres, rd.FechaAprobada, rd.IncisoArticulo8, rd.Estado, mee.NumeroExpediente, mee.AnioExpediente, ce.FechaEspecialista, (SELECT MAX(ce2.FechaEspecialista) FROM colegiadoespecialista ce2 WHERE ce2.IdColegiado = rd.IdColegiado AND ce2.Especialidad = rd.Especialidad) AS FechaEspecialista2, rd.FechaRecertificacion, ce.FechaVencimiento, te.Nombre AS Origen, ce.IncisoArticulo8 AS EspecialistaInciso, te2.IdTipoEspecialista, ce.HashQR, ce.Id, cer.IdColegiadoEspecialista AS por_recertificacion
+FROM resoluciondetalle rd
+            INNER JOIN colegiado c ON(c.Id = rd.IdColegiado)
+            INNER JOIN persona p ON(p.Id = c.IdPersona)
+            INNER JOIN especialidad e ON(e.Id = rd.Especialidad)
+            LEFT JOIN tipoespecialista te ON(te.IdTipoEspecialista = rd.IdTipoEspecialista)
+            LEFT JOIN mesaentradaespecialidad mee ON(mee.IdMesaEntradaEspecialidad = rd.IdMesaEntradaEspecialidad)
+            LEFT JOIN colegiadoespecialista ce ON(ce.IdResolucionDetalle = rd.Id AND ce.Estado = 'A')
+            LEFT JOIN colegiadoespecialistarecertificaciones cer ON cer.IdResolucionDetalle = rd.Id
+            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = ce.IdTipoEspecialista)
+    WHERE rd.IdResolucion = ? AND rd.IdTipoEspecialista NOT IN(".JERARQUIZADO.", ".CONSULTOR.", ".RECERTIFICACION.") AND rd.Estado IN(0, 1) 
+                ORDER BY c.Matricula)
 
 UNION ALL
 
-(SELECT DISTINCT resoluciondetalle.Id, resoluciondetalle.TipoEspecialista, tipoespecialista.Nombre, especialidad.Especialidad, colegiado.Matricula, persona.Apellido, persona.Sexo,
-                persona.Nombres, resoluciondetalle.FechaAprobada, resoluciondetalle.IncisoArticulo8, resoluciondetalle.Estado,
-                mesaentradaespecialidad.NumeroExpediente, mesaentradaespecialidad.AnioExpediente, colegiadoespecialista.FechaEspecialista, (SELECT MAX(ce2.FechaEspecialista) FROM colegiadoespecialista ce2 WHERE ce2.IdColegiado = resoluciondetalle.IdColegiado AND ce2.Especialidad = resoluciondetalle.Especialidad) AS FechaEspecialista2,
-                resoluciondetalle.FechaRecertificacion, colegiadoespecialista.FechaVencimiento, te2.Nombre AS Origen, colegiadoespecialista.IncisoArticulo8 AS EspecialistaInciso, te2.Codigo AS CodigoEspecialista, colegiadoespecialista.HashQR, colegiadoespecialista.Id, cer.IdColegiadoEspecialista AS por_recertificacion
-            FROM resoluciondetalle
-            INNER JOIN colegiado ON(colegiado.Id = resoluciondetalle.IdColegiado)
-            INNER JOIN persona ON(persona.Id = colegiado.IdPersona)
-            INNER JOIN especialidad ON(especialidad.Id = resoluciondetalle.Especialidad)
-            LEFT JOIN tipoespecialista ON(tipoespecialista.Codigo = resoluciondetalle.TipoEspecialista)
-            LEFT JOIN mesaentradaespecialidad ON(mesaentradaespecialidad.IdMesaEntradaEspecialidad = resoluciondetalle.IdMesaEntradaEspecialidad)
-            LEFT JOIN colegiadoespecialistarecertificaciones cer ON cer.IdResolucionDetalle = resoluciondetalle.Id
-            LEFT JOIN colegiadoespecialista ON(colegiadoespecialista.Id = cer.IdColegiadoEspecialista)
-            LEFT JOIN tipoespecialista te2 ON(te2.IdTipoEspecialista = colegiadoespecialista.IdTipoEspecialista)
-            WHERE resoluciondetalle.IdResolucion = ? AND resoluciondetalle.TipoEspecialista = 'R' AND resoluciondetalle.Estado IN(0, 1) 
-            ORDER BY colegiado.Matricula)";
+(SELECT DISTINCT rd.Id, rd.IdTipoEspecialista, te.Nombre, e.Especialidad, c.Matricula, p.Apellido, p.Sexo, p.Nombres, rd.FechaAprobada, rd.IncisoArticulo8, rd.Estado,
+                mee.NumeroExpediente, mee.AnioExpediente, ce.FechaEspecialista, (SELECT MAX(ce2.FechaEspecialista) FROM colegiadoespecialista ce2 WHERE ce2.IdColegiado = rd.IdColegiado AND ce2.Especialidad = rd.Especialidad) AS FechaEspecialista2, rd.FechaRecertificacion, ce.FechaVencimiento, te2.Nombre AS Origen, ce.IncisoArticulo8 AS EspecialistaInciso, te2.IdTipoEspecialista, ce.HashQR, ce.Id, cer.IdColegiadoEspecialista AS por_recertificacion
+            FROM resoluciondetalle rd
+            INNER JOIN colegiado c ON c.Id = rd.IdColegiado
+            INNER JOIN persona p ON p.Id = c.IdPersona
+            INNER JOIN especialidad e ON e.Id = rd.Especialidad
+            LEFT JOIN tipoespecialista te ON te.IdTipoEspecialista = rd.IdTipoEspecialista
+            LEFT JOIN mesaentradaespecialidad mee ON mee.IdMesaEntradaEspecialidad = rd.IdMesaEntradaEspecialidad
+            LEFT JOIN colegiadoespecialistarecertificaciones cer ON cer.IdResolucionDetalle = rd.Id
+            LEFT JOIN colegiadoespecialista ce ON ce.Id = cer.IdColegiadoEspecialista
+            LEFT JOIN tipoespecialista te2 ON te2.IdTipoEspecialista = ce.IdTipoEspecialista
+                WHERE rd.IdResolucion = ? AND rd.IdTipoEspecialista = ".RECERTIFICACION." AND rd.Estado IN(0, 1) 
+                ORDER BY c.Matricula)";
     //LEFT JOIN colegiadoespecialista ON(colegiadoespecialista.IdColegiado = resoluciondetalle.IdColegiado AND colegiadoespecialista.Especialidad = resoluciondetalle.Especialidad AND colegiadoespecialista.Estado = 'A')
 
     $stmt = $conect->prepare($sql);
     $stmt->bind_param('iiii', $idResolucion, $idResolucion, $idResolucion, $idResolucion);
     $stmt->execute();
-    $stmt->bind_result($id, $codigoEspecialista, $tipoEspecialista, $especialidad, $matricula, $apellido, $sexo, $nombre, $fechaAprobacion, $inciso, $estado, $nroExpediente, $anioExpediente, $fechaEspecialista, $fechaEspecialista2, $fechaRecertificacion, $fechaVencimiento, $origen, $especialistaInciso, $codigoEspecialista, $hash_qr, $idColegiadoEspecialista, $idColegiadoEspecialistaPorRecertificacion);
+    $stmt->bind_result($id, $idTipoEspecialista, $nombreTipoEspecialista, $especialidad, $matricula, $apellido, $sexo, $nombre, $fechaAprobacion, $inciso, $estado, $nroExpediente, $anioExpediente, $fechaEspecialista, $fechaEspecialista2, $fechaRecertificacion, $fechaVencimiento, $origen, $especialistaInciso, $idTipoEspecialistaPorRecertificacion, $hash_qr, $idColegiadoEspecialista, $idColegiadoEspecialistaPorRecertificacion);
     $stmt->store_result();
 
     $resultado = array();
@@ -403,8 +353,8 @@ UNION ALL
                 }
                 $row = array (
                     'idResolucionDetalle' => $id,
-                    'codigoEspecialista' => $codigoEspecialista,
-                    'tipoEspecialista' => $tipoEspecialista,
+                    'idTipoEspecialista' => $idTipoEspecialista,
+                    'nombreTipoEspecialista' => $nombreTipoEspecialista,
                     'especialidad' => $especialidad,
                     'matricula' => $matricula,
                     'apellido' => $apellido,
@@ -423,7 +373,8 @@ UNION ALL
                     'especialistaInciso' => $especialistaInciso,
                     'hash_qr' => $hash_qr,
                     'idColegiadoEspecialista' => $idColegiadoEspecialista,
-                    'idColegiadoEspecialistaPorRecertificacion' => $idColegiadoEspecialistaPorRecertificacion
+                    'idColegiadoEspecialistaPorRecertificacion' => $idColegiadoEspecialistaPorRecertificacion,
+                    'idTipoEspecialistaPorRecertificacion' => $idTipoEspecialistaPorRecertificacion
                  );
                 array_push($datos, $row);
             }
@@ -462,21 +413,20 @@ function obtenerDetalleResolucionPorId($idResolucion){
     $stmt->store_result();
 
     if(mysqli_stmt_errno($stmt)==0) {
-        $sql = "SELECT rd.Id, rd.IdColegiado, rd.Especialidad, rd.TipoEspecialista, rd.Estado, rd.FechaAprobada, rd.FechaRecertificacion, 
-                    p.FechaNacimiento, te.IdTipoEspecialista, mee.Distrito, ce.Id AS IdColegiadoEspecialista, cet.Id AS IdColegiadoEspecialistaTipo,
+        $sql = "SELECT rd.Id, rd.IdColegiado, rd.Especialidad, rd.IdTipoEspecialista, rd.Estado, rd.FechaAprobada, rd.FechaRecertificacion, 
+                    p.FechaNacimiento, mee.Distrito, ce.Id AS IdColegiadoEspecialista, cet.Id AS IdColegiadoEspecialistaTipo,
                     rd.IncisoArticulo8
                 FROM resoluciondetalle rd
                 INNER JOIN colegiado c ON(c.Id = rd.IdColegiado)
                 INNER JOIN persona p ON(p.Id = c.IdPersona)
-                INNER JOIN tipoespecialista te ON(te.Codigo = rd.TipoEspecialista)
                 LEFT JOIN mesaentradaespecialidad mee ON(mee.IdMesaEntradaEspecialidad = rd.IdMesaEntradaEspecialidad)
-                LEFT JOIN colegiadoespecialista ce ON(ce.IdColegiado = c.Id AND ce.Especialidad = rd.Especialidad AND ((ce.IdTipoEspecialista = te.IdTipoEspecialista AND ce.IncisoArticulo8 = rd.IncisoArticulo8) OR rd.TipoEspecialista IN('R', 'J', 'C')))
-                LEFT JOIN colegiadoespecialistatipo cet ON(cet.IdColegiadoEspecialista = ce.Id AND cet.TipoEspecialista = rd.TipoEspecialista)
+                LEFT JOIN colegiadoespecialista ce ON(ce.IdColegiado = c.Id AND ce.Especialidad = rd.Especialidad AND ((ce.IdTipoEspecialista = rd.IdTipoEspecialista AND ce.IncisoArticulo8 = rd.IncisoArticulo8) OR rd.IdTipoEspecialista IN(".RECERTIFICACION.", ".JERARQUIZADO.", ".CONSULTOR.")))
+                LEFT JOIN colegiadoespecialistatipo cet ON(cet.IdColegiadoEspecialista = ce.Id AND cet.IdTipoEspecialista = rd.IdTipoEspecialista)
                 WHERE rd.IdResolucion = ?";
         $stmt = $conect->prepare($sql);
         $stmt->bind_param('i', $idResolucion);
         $stmt->execute();
-        $stmt->bind_result($idResolucionDetalle, $idColegiado, $idEspecialidad, $tipoEspecialista, $idEstadoResolucionDetalle, $fechaAprobacion, $fechaRecertificacion, $fechaNacimiento, $idTipoEspecialista, $distrito, $idColegiadoEspecialista, $idColegiadoEspecialistaTipo, $incisoArticulo8);
+        $stmt->bind_result($idResolucionDetalle, $idColegiado, $idEspecialidad, $idTipoEspecialista, $idEstadoResolucionDetalle, $fechaAprobacion, $fechaRecertificacion, $fechaNacimiento, $distrito, $idColegiadoEspecialista, $idColegiadoEspecialistaTipo, $incisoArticulo8);
         $stmt->store_result();
 
         $resultado = array();
@@ -491,7 +441,6 @@ function obtenerDetalleResolucionPorId($idResolucion){
                         'idResolucionDetalle' => $idResolucionDetalle,
                         'idColegiado' => $idColegiado,
                         'idEspecialidad' => $idEspecialidad,
-                        'tipoEspecialista' => $tipoEspecialista,
                         'idEstadoResolucionDetalle' => $idEstadoResolucionDetalle,
                         'fechaAprobacion' => $fechaAprobacion,
                         'fechaRecertificacion' => $fechaRecertificacion,
@@ -540,19 +489,19 @@ function obtenerDetalleResolucionPorId($idResolucion){
 function obtenerResolucionDetallePorId($idResolucionDetalle) {
     $conect = conectar();
     mysqli_set_charset( $conect, 'utf8');
-    $sql="SELECT rd.IdResolucion, rd.TipoEspecialista, rd.Especialidad, rd.Estado, rd.FechaAprobada, rd.FechaRecertificacion, rd.IncisoArticulo8, rd.IdColegiado, c.Matricula, p.Apellido, p.Nombres, e.Especialidad, te.Nombre, r.TipoResolucion, tr.Detalle, r.Numero, p.Sexo
+    $sql="SELECT rd.IdResolucion, rd.IdTipoEspecialista, rd.Especialidad, rd.Estado, rd.FechaAprobada, rd.FechaRecertificacion, rd.IncisoArticulo8, rd.IdColegiado, c.Matricula, p.Apellido, p.Nombres, e.Especialidad, te.Nombre, r.TipoResolucion, tr.Detalle, r.Numero, p.Sexo
         FROM resoluciondetalle rd
         INNER JOIN resolucion r ON r.Id = rd.IdResolucion
         INNER JOIN colegiado c ON c.Id = rd.IdColegiado
         INNER JOIN persona p ON p.Id = c.IdPersona
         INNER JOIN especialidad e ON e.Id = rd.Especialidad
-        INNER JOIN tipoespecialista te ON te.Codigo = rd.TipoEspecialista
+        INNER JOIN tipoespecialista te ON te.IdTipoEspecialista = rd.IdTipoEspecialista
         INNER JOIN tiporesolucion tr ON tr.Id = r.TipoResolucion
         WHERE rd.Id = ?";
     $stmt = $conect->prepare($sql);
     $stmt->bind_param('i', $idResolucionDetalle);
     $stmt->execute();
-    $stmt->bind_result($idResolucion, $tipo, $especialidad, $estado, $fechaAprobada, $fechaRecertificacion, $inciso, $idColegiado, $matricula, $apellido, $nombre, $especialidadDetalle, $tipoEspecialista, $idTipoResolucion, $tipoResolucion, $numeroResolucion, $sexo);
+    $stmt->bind_result($idResolucion, $idTipoEspecialista, $especialidad, $estado, $fechaAprobada, $fechaRecertificacion, $inciso, $idColegiado, $matricula, $apellido, $nombre, $especialidadDetalle, $tipoEspecialista, $idTipoResolucion, $tipoResolucion, $numeroResolucion, $sexo);
     $stmt->store_result();
 
     $resultado = array();
@@ -561,7 +510,7 @@ function obtenerResolucionDetallePorId($idResolucionDetalle) {
             $row = mysqli_stmt_fetch($stmt);
             $datos = array (
                     'idResolucion' => $idResolucion,
-                    'tipo' => $tipo,
+                    'idTipoEspecialista' => $idTipoEspecialista,
                     'especialidad' => $especialidad,
                     'especialidadDetalle' => $especialidadDetalle,
                     'estado' => $estado,
@@ -648,7 +597,7 @@ function obtenerTiposEspecialista(){
     return $resultado;
 }
 
-function agregarResolucionDetalle($idResolucion, $idMesaEntradaEspecialidad, $idEspecialidad, $tipoEspecialista, $fechaAprobada, $fechaRecertificacion, $idEspecialistaBaja, $idColegiado, $inciso) {
+function agregarResolucionDetalle($idResolucion, $idMesaEntradaEspecialidad, $idEspecialidad, $idTipoEspecialista, $fechaAprobada, $fechaRecertificacion, $idEspecialistaBaja, $idColegiado, $inciso) {
     $conect = conectar();
     mysqli_set_charset( $conect, 'utf8');
     $resultado = array(); 
@@ -657,10 +606,10 @@ function agregarResolucionDetalle($idResolucion, $idMesaEntradaEspecialidad, $id
         $conect->autocommit(FALSE);
 
         //obtengo proxima ENTREGA
-        $sql="INSERT INTO resoluciondetalle (IdResolucion, Especialidad, TipoEspecialista, Estado, FechaAprobada, FechaRecertificacion, IdEspecialistaBaja, IdColegiado, IncisoArticulo8, IdMesaEntradaEspecialidad)
+        $sql="INSERT INTO resoluciondetalle (IdResolucion, Especialidad, IdTipoEspecialista, Estado, FechaAprobada, FechaRecertificacion, IdEspecialistaBaja, IdColegiado, IncisoArticulo8, IdMesaEntradaEspecialidad)
                 VALUES (?, ?, ?, '0', ?, ?, ?, ?, ?, ?)";
         $stmt = $conect->prepare($sql);
-        $stmt->bind_param('iisssiisi', $idResolucion, $idEspecialidad, $tipoEspecialista, $fechaAprobada, $fechaRecertificacion, $idEspecialistaBaja, $idColegiado, $inciso, $idMesaEntradaEspecialidad);
+        $stmt->bind_param('iiissiisi', $idResolucion, $idEspecialidad, $idTipoEspecialista, $fechaAprobada, $fechaRecertificacion, $idEspecialistaBaja, $idColegiado, $inciso, $idMesaEntradaEspecialidad);
         $stmt->execute();
         $stmt->store_result();
         
